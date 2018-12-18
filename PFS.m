@@ -54,7 +54,10 @@ for n = [1:8]
     fprintf("Run ");
     for run = 1:runIter
         fprintf("%d,", run);
+
+		%==============================Shuffling===========================
         data = data(randperm(size(data, 1)), :);
+
         %==============================Variables===========================
         A = data(:,1:end-1);
         B = data(:,end);
