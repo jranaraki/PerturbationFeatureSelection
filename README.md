@@ -19,6 +19,5 @@ This code can be run using MATLAB R2006a and above
 To run the code, open `PFS.m` and choose a dataset to apply the method to. The code strats reading the selected dataset using `readLargeCSV.m` written by [Cedric Wannaz](https://www.mathworks.com/matlabcentral/profile/authors/1078046-cedric-wannaz). Then it selects the most important features and find the best subset by looking at the classification accuracies returned by `cAcc.m` divided by the size of seleted subsets. Finally, a subset with the best accuracy and the smallest number of features is selected and returned as the output. All datasets are stored in *Data* folder and originally adopted from [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/index.php) and [ASU feature selection datasets](http://featureselection.asu.edu/)
 
 ## Note
- - The classification accuracies of Tables 6 and 7 have been calculated using `cAcc.m` and of Table 11 using `cAcc_CV.m`
- - In order to get accuracy using decision tree, support vector machine or k-nearest neighbour the corresponding line in the `cAcc.m` should be uncommented
+ - In order to get accuracy using decision tree, support vector machine or k-nearest neighbour the corresponding line in the `cAccInner.m` should be uncommented
  - Datasets should have no column and/or row names, and the class values should be all numeric
