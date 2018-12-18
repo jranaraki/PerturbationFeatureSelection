@@ -11,7 +11,7 @@ warning off;
 global data;
 %%================================Data=====================================
 strArray{1} = 'LSVT_voice_rehabilitation.csv';
-strArray{2} = 'madelonOK.csv';
+strArray{2} = 'madelon.csv';
 strArray{3} = 'colon.csv';
 strArray{4} = 'lung.csv';
 strArray{5} = 'lymphoma.csv';
@@ -27,7 +27,7 @@ cl = 1000000;
 clMethod = 0; %0 for kMeans and 1 for cMeans
 
 %%================================Main=====================================
-for n = 5
+for n = [1:8]
     tic
     disp(['Loading ', strArray{n}, ' ...']);
     
@@ -48,17 +48,13 @@ for n = 5
     [r, c] = size(data);
     allF = c - 1;
     clusters = min(min([allF, r]), rank(data(:,1:end-1)));
-    
-    %Uncomment this for generating the results of Table 10
-    %clusters = min(min(min([allF, r]), rank(data(:,1:end-1))), 30);
-    
     out = cell(runIter * clusters, 4);
     eliteCluster = zeros(runIter, 4);
     
     fprintf("Run ");
     for run = 1:runIter
         fprintf("%d,", run);
-        
+        data = data(randperm(size(data, 1)), :);
         %==============================Variables===========================
         A = data(:,1:end-1);
         B = data(:,end);
@@ -142,7 +138,7 @@ for n = 5
             if (out{(run - 1) * clusters + cluster, 2} > eliteCluster(run, 3))
                 eliteCluster(run, 1) = (run - 1) * clusters + cluster;
                 eliteCluster(run, 2) = length(out{(run - 1) * clusters + cluster, 1});
-                eliteCluster(run, 3) = out{(run - 1) * clusters + cluster, 2};
+                eliteCluster(run, 3) = cAccOutter([out{(run - 1) * clusters + cluster, 1}, c]);
             end
         end
     end
@@ -151,19 +147,27 @@ for n = 5
     out(emptyIndex) = {0};
     
     eliteCluster(:, 4) = eliteCluster(:, 3) ./ eliteCluster(:, 2);
-    [~, bestMeasureIdxTemp] = max(eliteCluster(:, 4));
-    bestMeasureIdx1stVersion = eliteCluster(bestMeasureIdxTemp, 1);
-    SF = out{bestMeasureIdx1stVersion, 1};
-    CA = cAccOutter([SF, c]);
+    [~, bestMeasure] = max(eliteCluster(:, 4));
+    SFMeasure = out{eliteCluster(bestMeasure, 1)};
+    CAMeasure = eliteCluster(bestMeasure, 3);
+    
+    [~, bestAccuracy] = max(eliteCluster(:, 3));
+    SFAccuracy = out{eliteCluster(bestAccuracy, 1)};
+    CAAccuracy = eliteCluster(bestAccuracy, 3);
+    
     meanACC = mean(eliteCluster(:, 3));
     meanSelF = mean(eliteCluster(:, 2));
     originalACC = cAccOutter([1:c]);
     
     fprintf("\b\n");
     
-    disp('  ---------------Selection criterion: Best measure(of the best accuracies)---------------');
-    disp(['  |SF| = ', num2str(length(SF)), ', CA = ', num2str(CA), '%, Mean(|SF|) = ', num2str(meanSelF), ', Mean(CA) = ', num2str(meanACC), '%, Measure = ', num2str(CA/length(SF)), ', CA(original) = ', num2str(originalACC), '%']);
-    disp(['  Selected subset = [', num2str(out{bestMeasureIdx1stVersion, 1}), ']']);
+    disp('  ---------------Selection criterion: Best Measure---------------  ');
+    disp(['  |SF| = ', num2str(length(SFMeasure)), ', CA = ', num2str(CAMeasure), '%, Mean(|SF|) = ', num2str(meanSelF), ', Mean(CA) = ', num2str(meanACC), '%, Measure = ', num2str(CAMeasure/length(SFMeasure)), ', CA(original) = ', num2str(originalACC), '%']);
+    disp(['  Selected subset = [', num2str(SFMeasure), ']']);
+    
+    disp('  ---------------Selection criterion: Best Accuracy---------------  ');
+    disp(['  |SF| = ', num2str(length(SFAccuracy)), ', CA = ', num2str(CAAccuracy), '%, Mean(|SF|) = ', num2str(meanSelF), ', Mean(CA) = ', num2str(meanACC), '%, Measure = ', num2str(CAAccuracy/length(SFAccuracy)), ', CA(original) = ', num2str(originalACC), '%']);
+    disp(['  Selected subset = [', num2str(SFAccuracy), ']']);
     fprintf("\n");
     
     toc
