@@ -10,7 +10,7 @@ The code `PFS.m` is available now and a link to the paper will be provided soon.
 ## Use case
 To determine the most important features using the algorithm described in "A Feature Selection based on Perturbation Theory" by Javad Rahimipour Anaraki and Hamid Usefi
 
-Here is a link to the paper: [arXiv](https://arxiv.org/abs/1902.09938) and [Expert Systems With Applications]()
+Here is two links to the paper: [arXiv](https://arxiv.org/abs/1902.09938) and [Expert Systems With Applications]()
 
 ## Compile
 This code can be run using MATLAB R2006a and above
