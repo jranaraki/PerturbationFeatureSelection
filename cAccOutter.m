@@ -4,6 +4,12 @@
 % Memorial University of Newfoundland
 % jra066 [AT] mun [DOT] ca | www.cs.mun.ca/~jra066
 
+% Programmed by Hamid Usefi
+% Associate Professor of Mathematics
+% Department of Mathematics and Statistics
+% Memorial University of Newfoundland
+% usefi [AT] mun [DOT] ca | www.math.mun.ca/~usefi/
+
 % Input: Selected features
 % Output: Classification accuracy using Decision Tree classifier
 
