@@ -5,7 +5,7 @@ date: '29/05/18'
 ---
 
 ## Notice
-The code `PFS.m` is available now and a link to the paper will be provided soon. If you need more details and explanation about the algorithm, please contact [Javad Rahimipour Anaraki](http://www.cs.mun.ca/~jra066/) or [Hamid Usefi](http://www.math.mun.ca/~usefi/).
+The code `PFS.m` is available now and a link to the paper will be provided soon. If you need more details and explanation about the algorithm, please contact [Javad Rahimipour Anaraki](http://individual.utoronto.ca/jrahimipour/) or [Hamid Usefi](http://www.math.mun.ca/~usefi/).
 
 ## Use case
 To determine the most important features using the algorithm described in "A Feature Selection based on Perturbation Theory" by Javad Rahimipour Anaraki and Hamid Usefi
